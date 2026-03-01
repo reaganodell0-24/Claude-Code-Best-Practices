@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Analysis & DCF Valuation</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="search-container">
+                <input type="text" class="search-input" id="ticker-search"
+                       placeholder="Search ticker..." autocomplete="off">
+                <div class="search-results" id="search-results"></div>
+            </div>
+
+            <div class="price-header" id="price-header">
+                <span class="ticker-name" id="ticker-name">Search a ticker to begin</span>
+                <span class="current-price" id="current-price"></span>
+                <span class="price-change" id="price-change"></span>
+            </div>
+
+            <div style="flex:1"></div>
+        </div>
+
+        <div class="main-content">
+            <!-- Main Panel -->
+            <div style="flex:1; display:flex; flex-direction:column; overflow:hidden;">
+                <!-- Tabs -->
+                <div class="tab-bar">
+                    <button class="tab-btn active" data-tab="financials">Financials</button>
+                    <button class="tab-btn" data-tab="dcf">DCF Valuation</button>
+                    <button class="tab-btn" data-tab="portfolio">Portfolio</button>
+                </div>
+
+                <!-- Financials Tab -->
+                <div class="panel active" data-panel="financials" style="flex:1;">
+                    <div class="sub-tab-bar">
+                        <button class="sub-tab-btn active" data-subtab="income">Income Statement</button>
+                        <button class="sub-tab-btn" data-subtab="cashflow">Cash Flow</button>
+                        <button class="sub-tab-btn" data-subtab="balance">Balance Sheet</button>
+                        <div class="freq-toggle">
+                            <button class="freq-btn active" data-freq="annual">Annual</button>
+                            <button class="freq-btn" data-freq="quarterly">Quarterly</button>
+                        </div>
+                    </div>
+                    <div id="statement-table-container">
+                        <div class="empty-state">Search a ticker to view financial statements</div>
+                    </div>
+                </div>
+
+                <!-- DCF Tab -->
+                <div class="panel" data-panel="dcf" style="flex:1;">
+                    <div class="dcf-layout">
+                        <div class="dcf-assumptions">
+                            <h3 class="section-title">DCF Assumptions</h3>
+                            <div id="dcf-inputs">
+                                <div class="empty-state">Search a ticker to run DCF valuation</div>
+                            </div>
+                        </div>
+                        <div class="dcf-results">
+                            <div class="dcf-fair-value" id="dcf-fair-value"></div>
+                            <h3 class="section-title">Projected Financials</h3>
+                            <div id="dcf-projections"></div>
+                            <h3 class="section-title">Sensitivity Analysis</h3>
+                            <div id="dcf-sensitivity"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Tab -->
+                <div class="panel" data-panel="portfolio" style="flex:1;">
+                    <h3 class="section-title">Portfolio</h3>
+                    <div class="portfolio-summary" id="portfolio-summary"></div>
+                    <div class="add-holding-form">
+                        <div class="form-group">
+                            <label>Ticker</label>
+                            <input type="text" class="form-input" id="add-ticker" placeholder="AAPL">
+                        </div>
+                        <div class="form-group">
+                            <label>Shares</label>
+                            <input type="number" class="form-input" id="add-shares" placeholder="10" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Avg Cost</label>
+                            <input type="number" class="form-input" id="add-cost" placeholder="150.00" step="0.01">
+                        </div>
+                        <button class="btn-primary" id="add-holding-btn">Add Holding</button>
+                    </div>
+                    <table class="holdings-table">
+                        <thead>
+                            <tr>
+                                <th>Ticker</th>
+                                <th>Shares</th>
+                                <th>Avg Cost</th>
+                                <th>Price</th>
+                                <th>Value</th>
+                                <th>P&L</th>
+                                <th>P&L %</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="holdings-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/utils.js"></script>
+    <script src="/static/js/statements.js"></script>
+    <script src="/static/js/dcf.js"></script>
+    <script src="/static/js/portfolio.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
